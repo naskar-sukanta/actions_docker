@@ -3,6 +3,9 @@ name: Docker Build & Push to Dockerhub
 on:
   workflow_dispatch:
 
+env:
+  DOCKERHUB_REPO: "training"
+
 jobs:
   build-and-push-docker-image:
     runs-on: ubuntu-latest
@@ -23,8 +26,9 @@ jobs:
     - name: Build and push Docker image
       uses: docker/build-push-action@v5
       with:
-        context: .                                     # Build context is the current directory
-        push: true                                     # Push the image to Docker Hub
-        tags: sukantanaskar/training:latest            # Tag for the Docker image
-        cache-from: type=gha,scope=build-cache         # Enable caching for faster builds
-        cache-to: type=gha,scope=build-cache,mode=max  # Store build cache
+        context: .                                                               # Build context is the current directory
+        push: true                                                               # Push the image to Docker Hub
+        tags: ${{ secrets.DOCKER_USERNAME }}/${{ env.DOCKERHUB_REPO }}:latest    # Tag for the Docker image
+        cache-from: type=gha,scope=build-cache                                   # Enable caching for faster builds
+        cache-to: type=gha,scope=build-cache,mode=max                            # Store build cache
+
