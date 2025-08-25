@@ -1,4 +1,4 @@
-name: Docker Build & Push to Dockerhub
+name: Docker Build Self-hosted & Push to Dockerhub
 
 on:
   workflow_dispatch:
